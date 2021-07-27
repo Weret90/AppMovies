@@ -1,4 +1,4 @@
-package com.umbrella.appmovies.ui.main
+package com.umbrella.appmovies.ui.main.view
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -6,27 +6,25 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.umbrella.appmovies.R
+import com.umbrella.appmovies.databinding.MainFragmentBinding
+import com.umbrella.appmovies.ui.main.viewmodel.MainViewModel
 
 class MainFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = MainFragment()
-    }
-
+    private var _binding: MainFragmentBinding? = null
+    private val binding get() = _binding!!
     private lateinit var viewModel: MainViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.main_fragment, container, false)
+        _binding = MainFragmentBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        // TODO: Use the ViewModel
     }
-
 }
