@@ -7,7 +7,12 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.umbrella.appmovies.ui.main.view.MainFragment"
+        android:name="com.umbrella.appmovies.ui.main.view.FilmsFragment"
         android:label="main_fragment"
-        tools:layout="@layout/main_fragment" />
+        tools:layout="@layout/fragment_films" />
+    <fragment
+        android:id="@+id/filmDescriptionFragment"
+        android:name="com.umbrella.appmovies.ui.main.view.FilmDescriptionFragment"
+        android:label="fragment_film_description"
+        tools:layout="@layout/fragment_film_description" />
 </navigation>
