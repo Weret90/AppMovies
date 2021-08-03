@@ -7,48 +7,37 @@ import androidx.lifecycle.viewModelScope
 import com.umbrella.appmovies.model.network.RetroInstance
 import com.umbrella.appmovies.model.network.RetroService
 import com.umbrella.appmovies.model.FilmsList
-import com.umbrella.appmovies.view.FilmsFragment
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 
 class MainViewModel : ViewModel() {
 
-    private val horrorsLiveData = MutableLiveData<FilmsList>()
-    private val actionsLiveData = MutableLiveData<FilmsList>()
-    private val comediesLiveData = MutableLiveData<FilmsList>()
-    private val loadingBarLiveData = MutableLiveData<String>()
+    private val progressBarLiveData = MutableLiveData<String>()
 
-    fun getData(genre: String): LiveData<FilmsList> {
-        return when (genre) {
-            FilmsFragment.ACTION -> actionsLiveData
-            FilmsFragment.HORROR -> horrorsLiveData
-            else -> comediesLiveData
-        }
+    companion object {
+        private val LOCK = Any()
+        private var executedCoroutinesCounter = 0
+        private const val mustBeExecutedNumber = 3
     }
 
-    fun getLoadingBarLiveData(): LiveData<String> {
-        return loadingBarLiveData
+    fun getProgressBarLiveData(): LiveData<String> {
+        return progressBarLiveData
     }
 
-    fun makeApiCall() {
+    fun getFilmsLiveData(page: String, genre: String): LiveData<FilmsList> {
+        val filmsLiveData = MutableLiveData<FilmsList>()
         viewModelScope.launch(Dispatchers.IO) {
             val retroInstance = RetroInstance.getRetroInstance().create(RetroService::class.java)
-            joinAll(
-                launch {
-                    val responseHorrors = retroInstance.getDataFromApi("1", FilmsFragment.HORROR)
-                    horrorsLiveData.postValue(responseHorrors)
-                },
-                launch {
-                    val responseComedies = retroInstance.getDataFromApi("1", FilmsFragment.COMEDY)
-                    comediesLiveData.postValue(responseComedies)
-                },
-                launch {
-                    val responseActions = retroInstance.getDataFromApi("1", FilmsFragment.ACTION)
-                    actionsLiveData.postValue(responseActions)
+            val response = retroInstance.getDataFromApi(page, genre)
+            filmsLiveData.postValue(response)
+            synchronized(LOCK) {
+                executedCoroutinesCounter++
+                if (executedCoroutinesCounter == mustBeExecutedNumber) {
+                    executedCoroutinesCounter = 0
+                    progressBarLiveData.postValue("download it's over")
                 }
-            )
-            loadingBarLiveData.postValue("Download data is over")
+            }
         }
+        return filmsLiveData
     }
 }

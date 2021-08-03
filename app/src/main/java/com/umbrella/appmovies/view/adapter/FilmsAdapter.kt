@@ -16,7 +16,7 @@ class FilmsAdapter : RecyclerView.Adapter<FilmsAdapter.MyViewHolder>() {
         private const val POSTER_URL = "https://image.tmdb.org/t/p/original"
     }
 
-    fun upgradeFilms(films: List<Film>) {
+    fun setFilms(films: List<Film>) {
         this.films = films
         notifyDataSetChanged()
     }
@@ -51,19 +51,18 @@ class FilmsAdapter : RecyclerView.Adapter<FilmsAdapter.MyViewHolder>() {
         return films.size
     }
 
-    inner class MyViewHolder(private val binding: ItemFilmBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class MyViewHolder(private val binding: ItemFilmBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(film: Film) {
             binding.filmTitle.text = film.title
-            val posterUrl = POSTER_URL + film.posterPath
+            val fullPosterUrl = POSTER_URL + film.posterPath
             Picasso.get()
-                .load(posterUrl)
+                .load(fullPosterUrl)
                 .into(binding.filmPoster)
             binding.filmYear.text = film.releaseDate
             binding.filmRating.text = film.voteAverage.toString()
             binding.root.setOnClickListener {
-                onFilmClickListener?.let {
-                    it.onFilmClick(adapterPosition)
-                }
+                onFilmClickListener?.onFilmClick(adapterPosition)
             }
         }
     }

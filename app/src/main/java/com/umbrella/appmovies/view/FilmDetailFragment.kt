@@ -36,9 +36,9 @@ class FilmDetailFragment : Fragment() {
         arguments?.let {
             val film = it.getSerializable(FilmsFragment.ARG_FILM) as Film
             binding.filmDescriptionTitle.text = film.title
-            val posterUrl = POSTER_URL + film.posterPath
+            val fullPosterUrl = POSTER_URL + film.posterPath
             Picasso.get()
-                .load(posterUrl)
+                .load(fullPosterUrl)
                 .into(binding.filmDescriptionPoster)
             binding.filmDescriptionYear.text = film.releaseDate
             binding.filmDescriptionRating.text = film.voteAverage.toString()
