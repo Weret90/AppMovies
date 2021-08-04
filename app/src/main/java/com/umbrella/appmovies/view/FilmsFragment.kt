@@ -98,11 +98,11 @@ class FilmsFragment : Fragment() {
             if (viewModel.isAllCoroutinesHasBeenExecuted()) {
                 viewModel.resetExecutedCoroutinesCounter()
                 binding.loadingLayout.hide()
-                if (downloadStatus == MainViewModel.DOWNLOAD_ERROR) {
-                    binding.errorScreen.show()
-                } else {
-                    binding.errorScreen.hide()
-                }
+            }
+            if (downloadStatus == MainViewModel.DOWNLOAD_ERROR) {
+                binding.errorScreen.show()
+            } else {
+                binding.errorScreen.hide()
             }
         })
     }
