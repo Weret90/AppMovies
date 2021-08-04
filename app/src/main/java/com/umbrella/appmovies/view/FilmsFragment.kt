@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.umbrella.appmovies.R
 import com.umbrella.appmovies.databinding.FragmentFilmsBinding
+import com.umbrella.appmovies.model.network.AppState
 import com.umbrella.appmovies.view.adapter.FilmsAdapter
 import com.umbrella.appmovies.viewmodel.MainViewModel
 
@@ -27,6 +28,8 @@ class FilmsFragment : Fragment() {
         private const val COMEDY = "35"
         private const val ACTION = "28"
         const val ARG_FILM = "film"
+        private const val SNACK_BAR_ERROR = "Ошибка"
+        private const val SNACK_BAR_RELOAD = "Повторить"
     }
 
     override fun onCreateView(
@@ -45,15 +48,12 @@ class FilmsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.getProgressBarLiveData().observe(viewLifecycleOwner, {
-            binding.loadingLayout.visibility = View.GONE
-        })
+        launchProgressBarControl()
 
         if (horrorsAdapter != null && actionsAdapter != null && comediesAdapter != null) {
             initAdapters()
         } else {
             downloadAllFilms()
-            initAdapters()
         }
     }
 
@@ -61,21 +61,28 @@ class FilmsFragment : Fragment() {
         horrorsAdapter = getAdapterWithFilmsLiveData(HORROR)
         comediesAdapter = getAdapterWithFilmsLiveData(COMEDY)
         actionsAdapter = getAdapterWithFilmsLiveData(ACTION)
+        initAdapters()
     }
 
     private fun getAdapterWithFilmsLiveData(genre: String): FilmsAdapter {
         val adapter = FilmsAdapter()
-        viewModel.getFilmsLiveData("3", genre).observe(viewLifecycleOwner, {
-            adapter.setFilms(it.films)
-        })
-        adapter.setOnFilmClickListener(object : FilmsAdapter.OnFilmClickListener {
-            override fun onFilmClick(position: Int) {
-                val film = adapter.getFilms()[position]
-                val bundle = Bundle()
-                bundle.putSerializable(ARG_FILM, film)
-                findNavController().navigate(R.id.filmDetailFragment, bundle)
+        viewModel.getFilmsLiveData("3", genre).observe(viewLifecycleOwner, { data ->
+            when (data) {
+                is AppState.Success -> {
+                    adapter.setFilms(data.response.films)
+                }
+                is AppState.Error -> {
+                    binding.root.showSnackBar(SNACK_BAR_ERROR, SNACK_BAR_RELOAD) {
+                        downloadAllFilms()
+                    }
+                }
             }
         })
+        adapter.setOnFilmClickListener { film ->
+            val bundle = Bundle()
+            bundle.putSerializable(ARG_FILM, film)
+            findNavController().navigate(R.id.filmDetailFragment, bundle)
+        }
         return adapter
     }
 
@@ -83,5 +90,16 @@ class FilmsFragment : Fragment() {
         binding.recyclerViewHorrors.adapter = horrorsAdapter
         binding.recyclerViewComedies.adapter = comediesAdapter
         binding.recyclerViewActions.adapter = actionsAdapter
+    }
+
+    private fun launchProgressBarControl() {
+        viewModel.getProgressBarLiveData().observe(viewLifecycleOwner, { downloadStatus ->
+            binding.loadingLayout.hide()
+            if (downloadStatus == MainViewModel.DOWNLOAD_ERROR) {
+                binding.errorScreen.show()
+            } else {
+                binding.errorScreen.hide()
+            }
+        })
     }
 }
