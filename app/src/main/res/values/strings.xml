@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">App Movies</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="poster_content_description">this is a film poster</string>
+    <string name="label_horrors">Horrors</string>
+    <string name="label_actions">Actions</string>
+    <string name="label_comedies">Comedies</string>
 </resources>
