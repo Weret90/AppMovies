@@ -45,10 +45,15 @@ class MainViewModel : ViewModel() {
     private fun checkAllCoroutinesWorkStatus() {
         synchronized(LOCK) {
             executedCoroutinesCounter++
-            if (executedCoroutinesCounter == MUST_BE_EXECUTED) {
-                executedCoroutinesCounter = 0
+            if (isAllCoroutinesHasBeenExecuted()) {
                 progressBarLiveData.postValue(DOWNLOAD_SUCCESS)
             }
         }
+    }
+
+    fun isAllCoroutinesHasBeenExecuted() = executedCoroutinesCounter == MUST_BE_EXECUTED
+
+    fun resetExecutedCoroutinesCounter() {
+        executedCoroutinesCounter = 0
     }
 }

@@ -16,7 +16,7 @@ class FilmsAdapter : RecyclerView.Adapter<FilmsAdapter.MyViewHolder>() {
         private const val POSTER_URL = "https://image.tmdb.org/t/p/original"
     }
 
-    fun setOnFilmClickListener(onFilmClickListener: (Film) -> Unit){
+    fun setOnFilmClickListener(onFilmClickListener: (Film) -> Unit) {
         this.onFilmClickListener = onFilmClickListener
     }
 
@@ -54,7 +54,7 @@ class FilmsAdapter : RecyclerView.Adapter<FilmsAdapter.MyViewHolder>() {
                     .into(binding.filmPoster)
                 filmYear.text = film.releaseDate
                 filmRating.text = film.voteAverage.toString()
-                root.setOnClickListener {
+                itemLinearLayout.setOnClickListener {
                     onFilmClickListener(film)
                 }
             }

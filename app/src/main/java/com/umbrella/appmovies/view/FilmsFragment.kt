@@ -51,6 +51,7 @@ class FilmsFragment : Fragment() {
         launchProgressBarControl()
 
         if (horrorsAdapter != null && actionsAdapter != null && comediesAdapter != null) {
+            binding.loadingLayout.hide()
             initAdapters()
         } else {
             downloadAllFilms()
@@ -94,11 +95,14 @@ class FilmsFragment : Fragment() {
 
     private fun launchProgressBarControl() {
         viewModel.getProgressBarLiveData().observe(viewLifecycleOwner, { downloadStatus ->
-            binding.loadingLayout.hide()
-            if (downloadStatus == MainViewModel.DOWNLOAD_ERROR) {
-                binding.errorScreen.show()
-            } else {
-                binding.errorScreen.hide()
+            if (viewModel.isAllCoroutinesHasBeenExecuted()) {
+                viewModel.resetExecutedCoroutinesCounter()
+                binding.loadingLayout.hide()
+                if (downloadStatus == MainViewModel.DOWNLOAD_ERROR) {
+                    binding.errorScreen.show()
+                } else {
+                    binding.errorScreen.hide()
+                }
             }
         })
     }

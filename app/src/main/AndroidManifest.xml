@@ -11,9 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppMovies">
-        <activity
-            android:name="com.umbrella.appmovies.view.MainActivity"
-            android:screenOrientation="portrait">
+        <activity android:name="com.umbrella.appmovies.view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
