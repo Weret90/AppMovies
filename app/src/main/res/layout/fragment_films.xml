@@ -14,9 +14,11 @@
             android:id="@+id/labelHorrors"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="@string/label_horrors" />
+            android:text="@string/label_horrors"
+            android:textStyle="bold" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewHorrors"
@@ -31,8 +33,10 @@
             android:id="@+id/labelActions"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_marginStart="8dp"
-            android:text="@string/label_actions" />
+            android:text="@string/label_actions"
+            android:textStyle="bold" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewActions"
@@ -47,8 +51,10 @@
             android:id="@+id/labelComedies"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_marginStart="8dp"
-            android:text="@string/label_comedies" />
+            android:text="@string/label_comedies"
+            android:textStyle="bold" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewComedies"
@@ -65,13 +71,31 @@
         android:id="@+id/loadingLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/darker_gray">
+        android:background="@android:color/darker_gray"
+        tools:visibility="gone">
 
         <ProgressBar
             style="?android:attr/progressBarStyleLarge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/errorScreen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/download_data_error"
+            android:textSize="24sp"
+            android:textStyle="bold" />
 
     </FrameLayout>
 

@@ -33,16 +33,19 @@ class FilmDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         arguments?.let {
             val film = it.getSerializable(FilmsFragment.ARG_FILM) as Film
-            binding.filmDescriptionTitle.text = film.title
-            val fullPosterUrl = POSTER_URL + film.posterPath
-            Picasso.get()
-                .load(fullPosterUrl)
-                .into(binding.filmDescriptionPoster)
-            binding.filmDescriptionYear.text = film.releaseDate
-            binding.filmDescriptionRating.text = film.voteAverage.toString()
-            binding.filmDescriptionDescription.text = film.overview
+            with(binding) {
+                filmDescriptionTitle.text = film.title
+                val fullPosterUrl = POSTER_URL + film.posterPath
+                Picasso.get()
+                    .load(fullPosterUrl)
+                    .into(binding.filmDescriptionPoster)
+                filmDescriptionYear.text = film.releaseDate
+                filmDescriptionRating.text = film.voteAverage.toString()
+                filmDescriptionDescription.text = film.overview
+            }
         }
     }
 }

@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">App Movies</string>
     <string name="poster_content_description">this is a film poster</string>
-    <string name="label_horrors">Horrors</string>
-    <string name="label_actions">Actions</string>
-    <string name="label_comedies">Comedies</string>
+    <string name="label_horrors">Ужасы, триллеры</string>
+    <string name="label_actions">Боевики, драмы, приключения</string>
+    <string name="label_comedies">Комедии, мультфильмы</string>
+    <string name="download_data_error">Ошибка загрузки данных</string>
+    <string name="rating_star_content_description">this is star picture for rating</string>
 </resources>

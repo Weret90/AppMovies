@@ -10,27 +10,19 @@ import com.umbrella.appmovies.model.Film
 class FilmsAdapter : RecyclerView.Adapter<FilmsAdapter.MyViewHolder>() {
 
     private var films: List<Film> = ArrayList()
-    private var onFilmClickListener: OnFilmClickListener? = null
+    private var onFilmClickListener: (Film) -> Unit = {}
 
     companion object {
         private const val POSTER_URL = "https://image.tmdb.org/t/p/original"
     }
 
+    fun setOnFilmClickListener(onFilmClickListener: (Film) -> Unit) {
+        this.onFilmClickListener = onFilmClickListener
+    }
+
     fun setFilms(films: List<Film>) {
         this.films = films
         notifyDataSetChanged()
-    }
-
-    fun getFilms(): List<Film> {
-        return films
-    }
-
-    interface OnFilmClickListener {
-        fun onFilmClick(position: Int)
-    }
-
-    fun setOnFilmClickListener(onFilmClickListener: OnFilmClickListener) {
-        this.onFilmClickListener = onFilmClickListener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -54,15 +46,17 @@ class FilmsAdapter : RecyclerView.Adapter<FilmsAdapter.MyViewHolder>() {
     inner class MyViewHolder(private val binding: ItemFilmBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(film: Film) {
-            binding.filmTitle.text = film.title
-            val fullPosterUrl = POSTER_URL + film.posterPath
-            Picasso.get()
-                .load(fullPosterUrl)
-                .into(binding.filmPoster)
-            binding.filmYear.text = film.releaseDate
-            binding.filmRating.text = film.voteAverage.toString()
-            binding.root.setOnClickListener {
-                onFilmClickListener?.onFilmClick(adapterPosition)
+            binding.apply {
+                filmTitle.text = film.title
+                val fullPosterUrl = POSTER_URL + film.posterPath
+                Picasso.get()
+                    .load(fullPosterUrl)
+                    .into(binding.filmPoster)
+                filmYear.text = film.releaseDate
+                filmRating.text = film.voteAverage.toString()
+                itemLinearLayout.setOnClickListener {
+                    onFilmClickListener(film)
+                }
             }
         }
     }
