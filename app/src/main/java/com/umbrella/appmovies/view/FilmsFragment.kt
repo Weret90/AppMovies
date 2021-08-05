@@ -1,6 +1,7 @@
 package com.umbrella.appmovies.view
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.umbrella.appmovies.R
 import com.umbrella.appmovies.databinding.FragmentFilmsBinding
-import com.umbrella.appmovies.model.network.AppState
+import com.umbrella.appmovies.model.AppState
 import com.umbrella.appmovies.view.adapter.FilmsAdapter
 import com.umbrella.appmovies.viewmodel.MainViewModel
 
@@ -48,10 +49,8 @@ class FilmsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        launchProgressBarControl()
-
         if (horrorsAdapter != null && actionsAdapter != null && comediesAdapter != null) {
-            binding.loadingLayout.hide()
+            Log.i("proverka", "existning")
             initAdapters()
         } else {
             downloadAllFilms()
@@ -59,6 +58,7 @@ class FilmsFragment : Fragment() {
     }
 
     private fun downloadAllFilms() {
+        initMainObserver()
         horrorsAdapter = getAdapterWithFilmsLiveData(HORROR)
         comediesAdapter = getAdapterWithFilmsLiveData(COMEDY)
         actionsAdapter = getAdapterWithFilmsLiveData(ACTION)
@@ -67,17 +67,8 @@ class FilmsFragment : Fragment() {
 
     private fun getAdapterWithFilmsLiveData(genre: String): FilmsAdapter {
         val adapter = FilmsAdapter()
-        viewModel.getFilmsLiveData("3", genre).observe(viewLifecycleOwner, { data ->
-            when (data) {
-                is AppState.Success -> {
-                    adapter.setFilms(data.response.films)
-                }
-                is AppState.Error -> {
-                    binding.root.showSnackBar(SNACK_BAR_ERROR, SNACK_BAR_RELOAD) {
-                        downloadAllFilms()
-                    }
-                }
-            }
+        viewModel.getFilmsLiveData("1", genre).observe(viewLifecycleOwner, {
+            adapter.setFilms(it.films)
         })
         adapter.setOnFilmClickListener { film ->
             val bundle = Bundle()
@@ -87,23 +78,29 @@ class FilmsFragment : Fragment() {
         return adapter
     }
 
+    private fun initMainObserver() {
+        viewModel.getMainLiveData().observe(viewLifecycleOwner, {
+            Log.i("proverka", "observe")
+            when (it) {
+                is AppState.Loading -> binding.loadingLayout.show()
+                is AppState.Success -> {
+                    binding.loadingLayout.hide()
+                    binding.errorScreen.hide()
+                }
+                is AppState.Error -> {
+                    binding.loadingLayout.hide()
+                    binding.errorScreen.show()
+                    binding.root.showSnackBar(SNACK_BAR_ERROR, SNACK_BAR_RELOAD) {
+                        downloadAllFilms()
+                    }
+                }
+            }
+        })
+    }
+
     private fun initAdapters() {
         binding.recyclerViewHorrors.adapter = horrorsAdapter
         binding.recyclerViewComedies.adapter = comediesAdapter
         binding.recyclerViewActions.adapter = actionsAdapter
-    }
-
-    private fun launchProgressBarControl() {
-        viewModel.getProgressBarLiveData().observe(viewLifecycleOwner, { downloadStatus ->
-            if (viewModel.isAllCoroutinesHasBeenExecuted()) {
-                viewModel.resetExecutedCoroutinesCounter()
-                binding.loadingLayout.hide()
-            }
-            if (downloadStatus == MainViewModel.DOWNLOAD_ERROR) {
-                binding.errorScreen.show()
-            } else {
-                binding.errorScreen.hide()
-            }
-        })
     }
 }
