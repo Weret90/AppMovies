@@ -1,6 +1,5 @@
 package com.umbrella.appmovies.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -36,7 +35,6 @@ class MainViewModel : ViewModel() {
                 synchronized(LOCK) {
                     executedCoroutinesCounter++
                     if (executedCoroutinesCounter == MUST_BE_EXECUTED) {
-                        Log.i("proverka", "shansua")
                         mainLiveData.postValue(AppState.Success)
                         executedCoroutinesCounter = 0
                     }

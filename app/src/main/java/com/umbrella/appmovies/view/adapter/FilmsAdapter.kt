@@ -25,8 +25,6 @@ class FilmsAdapter : RecyclerView.Adapter<FilmsAdapter.MyViewHolder>() {
         notifyDataSetChanged()
     }
 
-    fun getFilms() = films
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val binding = ItemFilmBinding.inflate(
             LayoutInflater.from(parent.context),

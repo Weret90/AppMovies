@@ -1,7 +1,6 @@
 package com.umbrella.appmovies.view
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -50,15 +49,14 @@ class FilmsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         if (horrorsAdapter != null && actionsAdapter != null && comediesAdapter != null) {
-            Log.i("proverka", "existning")
             initAdapters()
         } else {
+            initMainObserver()
             downloadAllFilms()
         }
     }
 
     private fun downloadAllFilms() {
-        initMainObserver()
         horrorsAdapter = getAdapterWithFilmsLiveData(HORROR)
         comediesAdapter = getAdapterWithFilmsLiveData(COMEDY)
         actionsAdapter = getAdapterWithFilmsLiveData(ACTION)
@@ -80,7 +78,6 @@ class FilmsFragment : Fragment() {
 
     private fun initMainObserver() {
         viewModel.getMainLiveData().observe(viewLifecycleOwner, {
-            Log.i("proverka", "observe")
             when (it) {
                 is AppState.Loading -> binding.loadingLayout.show()
                 is AppState.Success -> {
