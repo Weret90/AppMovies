@@ -15,4 +15,14 @@
         android:name="com.umbrella.appmovies.view.FilmDetailFragment"
         android:label="fragment_film_detail"
         tools:layout="@layout/fragment_film_detail" />
+    <fragment
+        android:id="@+id/selectedFilmsFragment"
+        android:name="com.umbrella.appmovies.view.SelectedFilmsFragment"
+        android:label="fragment_selected_films"
+        tools:layout="@layout/fragment_selected_films" />
+    <fragment
+        android:id="@+id/infoFragment"
+        android:name="com.umbrella.appmovies.view.InfoFragment"
+        android:label="fragment_info"
+        tools:layout="@layout/fragment_info" />
 </navigation>

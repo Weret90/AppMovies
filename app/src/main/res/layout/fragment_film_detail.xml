@@ -1,82 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.FilmDetailFragment">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/filmDescriptionPoster"
-            android:layout_width="300dp"
-            android:layout_height="400dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="8dp"
-            android:contentDescription="@string/poster_content_description"
-            android:scaleType="centerCrop"
-            tools:src="@drawable/ic_launcher_background" />
-
-        <TextView
-            android:id="@+id/filmDescriptionTitle"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginTop="8dp"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            tools:text="Какой-то фильм" />
+            android:orientation="vertical">
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp">
+            <ImageView
+                android:id="@+id/filmDescriptionPoster"
+                android:layout_width="300dp"
+                android:layout_height="400dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="8dp"
+                android:contentDescription="@string/poster_content_description"
+                android:scaleType="centerCrop"
+                tools:src="@drawable/ic_launcher_background" />
 
             <TextView
-                android:id="@+id/filmDescriptionYear"
-                android:layout_width="wrap_content"
+                android:id="@+id/filmDescriptionTitle"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:gravity="center"
                 android:textSize="18sp"
-                tools:text="2020" />
+                android:textStyle="bold"
+                tools:text="Какой-то фильм" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
+            <FrameLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp">
 
-                <ImageView
-                    android:id="@+id/imageStarForRating"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@android:drawable/star_on"
-                    android:contentDescription="@string/rating_star_content_description"/>
-
                 <TextView
-                    android:id="@+id/filmDescriptionRating"
+                    android:id="@+id/filmDescriptionYear"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:textSize="18sp"
-                    tools:text="7.7" />
-            </LinearLayout>
+                    tools:text="2020" />
 
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end">
 
-        </FrameLayout>
+                    <ImageView
+                        android:id="@+id/imageStarForRating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/rating_star_content_description"
+                        android:src="@android:drawable/star_on" />
 
-        <TextView
-            android:id="@+id/filmDescriptionDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:textSize="18sp"
-            android:textStyle="italic"
-            tools:text="Здесь будет описание фильма" />
-    </LinearLayout>
+                    <TextView
+                        android:id="@+id/filmDescriptionRating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:textSize="18sp"
+                        tools:text="7.7" />
+                </LinearLayout>
+            </FrameLayout>
 
-</ScrollView>
+            <TextView
+                android:id="@+id/filmDescriptionDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:textSize="18sp"
+                android:textStyle="italic"
+                tools:text="Здесь будет описание фильма" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addFilmToSelectedFilms"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:src="@drawable/icon_selected_films"
+        android:contentDescription="@string/FAB_icon" />
+
+</FrameLayout>

@@ -5,17 +5,26 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import com.squareup.picasso.Picasso
 import com.umbrella.appmovies.databinding.FragmentFilmDetailBinding
 import com.umbrella.appmovies.model.Film
+import com.umbrella.appmovies.viewmodel.MainViewModel
 
 class FilmDetailFragment : Fragment() {
 
     private var _binding: FragmentFilmDetailBinding? = null
     private val binding get() = _binding!!
+    private lateinit var viewModel: MainViewModel
 
     companion object {
         private const val POSTER_URL = "https://image.tmdb.org/t/p/original"
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -45,6 +54,11 @@ class FilmDetailFragment : Fragment() {
                 filmDescriptionYear.text = film.releaseDate
                 filmDescriptionRating.text = film.voteAverage.toString()
                 filmDescriptionDescription.text = film.overview
+
+                binding.addFilmToSelectedFilms.setOnClickListener {
+                    viewModel.insertFilmFromDB(film)
+                    Toast.makeText(context, "Фильм добавлен в избранное", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }

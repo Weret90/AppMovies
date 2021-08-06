@@ -11,9 +11,14 @@ class FilmsAdapter : RecyclerView.Adapter<FilmsAdapter.MyViewHolder>() {
 
     private var films: List<Film> = ArrayList()
     private var onFilmClickListener: (Film) -> Unit = {}
+    private var onFilmLongClickListener: (Film) -> Unit = {}
 
     companion object {
         private const val POSTER_URL = "https://image.tmdb.org/t/p/original"
+    }
+
+    fun setOnFilmLongClickListener(onFilmLongClickListener: (Film) -> Unit) {
+        this.onFilmLongClickListener = onFilmLongClickListener
     }
 
     fun setOnFilmClickListener(onFilmClickListener: (Film) -> Unit) {
@@ -56,6 +61,10 @@ class FilmsAdapter : RecyclerView.Adapter<FilmsAdapter.MyViewHolder>() {
                 filmRating.text = film.voteAverage.toString()
                 itemLinearLayout.setOnClickListener {
                     onFilmClickListener(film)
+                }
+                itemLinearLayout.setOnLongClickListener {
+                    onFilmLongClickListener(film)
+                    true
                 }
             }
         }

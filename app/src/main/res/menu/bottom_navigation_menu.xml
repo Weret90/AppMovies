@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/bottomNavMovies"
+        android:icon="@drawable/icon_movies"
+        android:title="@string/menu_item_movies" />
+
+    <item
+        android:id="@+id/bottomNavSelectedMovies"
+        android:icon="@drawable/icon_selected_films"
+        android:title="@string/menu_item_selected" />
+
+    <item
+        android:id="@+id/bottomNavInfo"
+        android:icon="@drawable/icon_info"
+        android:title="@string/menu_item_info" />
+
+</menu>
