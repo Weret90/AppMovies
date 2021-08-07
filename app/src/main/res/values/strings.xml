@@ -11,4 +11,6 @@
     <string name="menu_item_selected">Избранное</string>
     <string name="menu_item_info">Информация</string>
     <string name="FAB_icon">this is star icon for FAB</string>
+    <string name="movie_removed_from_DB_toast">Фильм удален из избранного</string>
+    <string name="movie_added_into_DB_toast">Фильм добавлен в избранное</string>
 </resources>

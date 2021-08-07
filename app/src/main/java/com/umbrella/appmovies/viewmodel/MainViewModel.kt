@@ -9,47 +9,46 @@ import com.umbrella.appmovies.model.Film
 import com.umbrella.appmovies.model.FilmsList
 import com.umbrella.appmovies.model.database.FilmsDatabase
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val mainLiveData = MutableLiveData<AppState>()
     private val database = FilmsDatabase.getInstance(application)
+
+    private val networkLiveData = MutableLiveData<AppState>()
     private val databaseLiveData = database.filmsDao().getAllFilms()
 
-    companion object {
-        private val LOCK = Any()
-        private var executedCoroutinesCounter = 0
-        private const val MUST_BE_EXECUTED = 3
-    }
+    fun getNetworkLiveData() = networkLiveData
 
-    fun getMainLiveData() = mainLiveData
+    fun getDatabaseLiveData(): LiveData<List<Film>> = databaseLiveData
 
-    fun getDatabaseLiveData(): LiveData<List<Film>> {
-        return databaseLiveData
-    }
-
-    fun getFilmsLiveData(page: String, genre: String): LiveData<FilmsList> {
-        val filmsLiveData = MutableLiveData<FilmsList>()
+    fun makeApiCall(genre1: String, genre2: String, genre3: String) {
         viewModelScope.launch(Dispatchers.IO) {
+            networkLiveData.postValue(AppState.Loading)
+            val allFilmsList = awaitAll(
+                async { getOneCategoryFilms("1", genre1) },
+                async { getOneCategoryFilms("1", genre2) },
+                async { getOneCategoryFilms("1", genre3) },
+            )
             try {
-                mainLiveData.postValue(AppState.Loading)
-                val retroInstance =
-                    RetroInstance.getRetroInstance().create(RetroService::class.java)
-                val response = retroInstance.getDataFromApi(page, genre)
-                filmsLiveData.postValue(response)
-                synchronized(LOCK) {
-                    executedCoroutinesCounter++
-                    if (executedCoroutinesCounter == MUST_BE_EXECUTED) {
-                        mainLiveData.postValue(AppState.Success)
-                        executedCoroutinesCounter = 0
-                    }
-                }
+                networkLiveData.postValue(AppState.Success(allFilmsList.requireNoNulls()))
             } catch (e: Exception) {
-                mainLiveData.postValue(AppState.Error(e))
+                networkLiveData.postValue(AppState.Error(e))
             }
         }
-        return filmsLiveData
+    }
+
+    private suspend fun getOneCategoryFilms(page: String, genre: String): FilmsList? {
+        return try {
+            val retroInstance =
+                RetroInstance.getRetroInstance().create(RetroService::class.java)
+            val response = retroInstance.getDataFromApi(page, genre)
+            response
+        } catch (e: Exception) {
+            null
+        }
     }
 
     fun deleteAllFilmsFromDB() {

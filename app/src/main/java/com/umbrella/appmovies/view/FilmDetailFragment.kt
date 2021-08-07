@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.squareup.picasso.Picasso
+import com.umbrella.appmovies.R
 import com.umbrella.appmovies.databinding.FragmentFilmDetailBinding
 import com.umbrella.appmovies.model.Film
 import com.umbrella.appmovies.viewmodel.MainViewModel
@@ -55,9 +56,13 @@ class FilmDetailFragment : Fragment() {
                 filmDescriptionRating.text = film.voteAverage.toString()
                 filmDescriptionDescription.text = film.overview
 
-                binding.addFilmToSelectedFilms.setOnClickListener {
+                addFilmToSelectedFilms.setOnClickListener {
                     viewModel.insertFilmFromDB(film)
-                    Toast.makeText(context, "Фильм добавлен в избранное", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        context,
+                        root.resources.getString(R.string.movie_added_into_DB_toast),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         }

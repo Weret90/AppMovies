@@ -42,7 +42,11 @@ class SelectedFilmsFragment : Fragment() {
         }
         adapter.setOnFilmLongClickListener { film ->
             viewModel.deleteFilmFromDB(film)
-            Toast.makeText(context, "Фильм удален из избранного", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                context,
+                binding.root.resources.getString(R.string.movie_removed_from_DB_toast),
+                Toast.LENGTH_SHORT
+            ).show()
         }
         viewModel.getDatabaseLiveData().observe(viewLifecycleOwner, {
             adapter.setFilms(it)
