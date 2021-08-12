@@ -6,4 +6,11 @@
     <string name="label_comedies">Комедии, мультфильмы</string>
     <string name="download_data_error">Ошибка загрузки данных</string>
     <string name="rating_star_content_description">this is star picture for rating</string>
+    <string name="app_info">Данное приложение создано в образовательных целях</string>
+    <string name="menu_item_movies">Все фильмы</string>
+    <string name="menu_item_selected">Избранное</string>
+    <string name="menu_item_info">Информация</string>
+    <string name="FAB_icon">this is star icon for FAB</string>
+    <string name="movie_removed_from_DB_toast">Фильм удален из избранного</string>
+    <string name="movie_added_into_DB_toast">Фильм добавлен в избранное</string>
 </resources>

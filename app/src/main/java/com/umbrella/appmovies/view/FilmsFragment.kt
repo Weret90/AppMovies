@@ -1,12 +1,13 @@
 package com.umbrella.appmovies.view
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import com.umbrella.appmovies.R
 import com.umbrella.appmovies.databinding.FragmentFilmsBinding
 import com.umbrella.appmovies.model.AppState
@@ -19,9 +20,7 @@ class FilmsFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var viewModel: MainViewModel
 
-    private var horrorsAdapter: FilmsAdapter? = null
-    private var actionsAdapter: FilmsAdapter? = null
-    private var comediesAdapter: FilmsAdapter? = null
+    private val listAdapters = ArrayList<FilmsAdapter>()
 
     companion object {
         private const val HORROR = "27"
@@ -30,6 +29,7 @@ class FilmsFragment : Fragment() {
         const val ARG_FILM = "film"
         private const val SNACK_BAR_ERROR = "Ошибка"
         private const val SNACK_BAR_RELOAD = "Повторить"
+        private const val FILMS_CATEGORY_NUMBER = 3
     }
 
     override fun onCreateView(
@@ -48,47 +48,42 @@ class FilmsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (horrorsAdapter != null && actionsAdapter != null && comediesAdapter != null) {
+        if (listAdapters.isEmpty()) {
+            for (i in (1..FILMS_CATEGORY_NUMBER)) {
+                listAdapters.add(FilmsAdapter())
+            }
+            setClickListeners()
             initAdapters()
-        } else {
             initMainObserver()
-            downloadAllFilms()
-        }
-    }
+            viewModel.makeApiCall(HORROR, ACTION, COMEDY)
 
-    private fun downloadAllFilms() {
-        horrorsAdapter = getAdapterWithFilmsLiveData(HORROR)
-        comediesAdapter = getAdapterWithFilmsLiveData(COMEDY)
-        actionsAdapter = getAdapterWithFilmsLiveData(ACTION)
-        initAdapters()
-    }
-
-    private fun getAdapterWithFilmsLiveData(genre: String): FilmsAdapter {
-        val adapter = FilmsAdapter()
-        viewModel.getFilmsLiveData("1", genre).observe(viewLifecycleOwner, {
-            adapter.setFilms(it.films)
-        })
-        adapter.setOnFilmClickListener { film ->
-            val bundle = Bundle()
-            bundle.putSerializable(ARG_FILM, film)
-            findNavController().navigate(R.id.filmDetailFragment, bundle)
+        } else {
+            initAdapters()
         }
-        return adapter
+
     }
 
     private fun initMainObserver() {
-        viewModel.getMainLiveData().observe(viewLifecycleOwner, {
-            when (it) {
-                is AppState.Loading -> binding.loadingLayout.show()
-                is AppState.Success -> {
-                    binding.loadingLayout.hide()
-                    binding.errorScreen.hide()
-                }
-                is AppState.Error -> {
-                    binding.loadingLayout.hide()
-                    binding.errorScreen.show()
-                    binding.root.showSnackBar(SNACK_BAR_ERROR, SNACK_BAR_RELOAD) {
-                        downloadAllFilms()
+        viewModel.getNetworkLiveData().observe(viewLifecycleOwner, {
+            with(binding) {
+                when (it) {
+                    is AppState.Loading -> {
+                        loadingLayout.show()
+                        errorScreen.hide()
+                    }
+                    is AppState.Success -> {
+                        loadingLayout.hide()
+                        errorScreen.hide()
+                        for (i in listAdapters.indices) {
+                            listAdapters[i].setFilms(it.films[i].films)
+                        }
+                    }
+                    is AppState.Error -> {
+                        loadingLayout.hide()
+                        errorScreen.show()
+                        anchorView.showSnackBar(SNACK_BAR_ERROR, SNACK_BAR_RELOAD) {
+                            viewModel.makeApiCall(HORROR, ACTION, COMEDY)
+                        }
                     }
                 }
             }
@@ -96,8 +91,29 @@ class FilmsFragment : Fragment() {
     }
 
     private fun initAdapters() {
-        binding.recyclerViewHorrors.adapter = horrorsAdapter
-        binding.recyclerViewComedies.adapter = comediesAdapter
-        binding.recyclerViewActions.adapter = actionsAdapter
+        val listRecyclerViews = ArrayList<RecyclerView>()
+
+        listRecyclerViews.add(binding.recyclerViewHorrors)
+        listRecyclerViews.add(binding.recyclerViewActions)
+        listRecyclerViews.add(binding.recyclerViewComedies)
+
+        for (i in listAdapters.indices) {
+            listRecyclerViews[i].adapter = listAdapters[i]
+        }
+    }
+
+    private fun setClickListeners() {
+        for (adapter in listAdapters) {
+            adapter.setOnFilmClickListener { film ->
+                val bundle = Bundle()
+                bundle.putSerializable(ARG_FILM, film)
+                findNavController().navigate(R.id.filmDetailFragment, bundle)
+            }
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
