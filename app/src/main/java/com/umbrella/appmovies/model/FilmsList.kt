@@ -12,8 +12,6 @@ data class FilmsList(
 
 @Entity (tableName = "selected films")
 data class Film(
-//    @SerializedName("genre_ids")
-//    val genreIds: List<Int>,
     @SerializedName("original_language")
     val originalLanguage: String,
     @SerializedName("backdrop_path")
