@@ -1,4 +1,4 @@
-package com.umbrella.appmovies.view
+package com.umbrella.appmovies.view.fragments
 
 import android.os.Bundle
 import android.view.*
@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.umbrella.appmovies.R
 import com.umbrella.appmovies.databinding.FragmentSelectedFilmsBinding
-import com.umbrella.appmovies.view.adapter.FilmsAdapter
+import com.umbrella.appmovies.view.adapters.FilmsAdapter
 import com.umbrella.appmovies.viewmodel.MainViewModel
 
 class SelectedFilmsFragment : Fragment() {

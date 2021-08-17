@@ -8,7 +8,7 @@ import java.io.Serializable
 data class FilmsList(
     @SerializedName("results")
     val films: List<Film>
-)
+) : Serializable
 
 @Entity (tableName = "selected films")
 data class Film(

@@ -7,22 +7,22 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.umbrella.appmovies.view.FilmsFragment"
+        android:name="com.umbrella.appmovies.view.fragments.FilmsFragment"
         android:label="main_fragment"
         tools:layout="@layout/fragment_films" />
     <fragment
         android:id="@+id/filmDetailFragment"
-        android:name="com.umbrella.appmovies.view.FilmDetailFragment"
+        android:name="com.umbrella.appmovies.view.fragments.FilmDetailFragment"
         android:label="fragment_film_detail"
         tools:layout="@layout/fragment_film_detail" />
     <fragment
         android:id="@+id/selectedFilmsFragment"
-        android:name="com.umbrella.appmovies.view.SelectedFilmsFragment"
+        android:name="com.umbrella.appmovies.view.fragments.SelectedFilmsFragment"
         android:label="fragment_selected_films"
         tools:layout="@layout/fragment_selected_films" />
     <fragment
         android:id="@+id/infoFragment"
-        android:name="com.umbrella.appmovies.view.InfoFragment"
+        android:name="com.umbrella.appmovies.view.fragments.InfoFragment"
         android:label="fragment_info"
         tools:layout="@layout/fragment_info" />
 </navigation>

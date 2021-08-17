@@ -1,4 +1,4 @@
-package com.umbrella.appmovies.view.adapter
+package com.umbrella.appmovies.view.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
