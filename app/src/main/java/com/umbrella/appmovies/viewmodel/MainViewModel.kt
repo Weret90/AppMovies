@@ -1,13 +1,15 @@
 package com.umbrella.appmovies.viewmodel
 
 import android.app.Application
-import androidx.lifecycle.*
-import com.umbrella.appmovies.model.network.RetroInstance
-import com.umbrella.appmovies.model.network.RetroService
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.umbrella.appmovies.model.AppState
 import com.umbrella.appmovies.model.Film
 import com.umbrella.appmovies.model.FilmsList
 import com.umbrella.appmovies.model.database.FilmsDatabase
+import com.umbrella.appmovies.model.network.RetroInstance
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -24,7 +26,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun getDatabaseLiveData(): LiveData<List<Film>> = databaseLiveData
 
-    fun makeApiCall(genre1: String, genre2: String, genre3: String) {
+    fun makeApiCalls(genre1: String, genre2: String, genre3: String) {
         viewModelScope.launch(Dispatchers.IO) {
             networkLiveData.postValue(AppState.Loading)
             val allFilmsList = awaitAll(
@@ -42,10 +44,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     private suspend fun getOneCategoryFilms(page: String, genre: String): FilmsList? {
         return try {
-            val retroInstance =
-                RetroInstance.getRetroInstance().create(RetroService::class.java)
-            val response = retroInstance.getDataFromApi(page, genre)
-            response
+            RetroInstance.getFilmsDetailsFromServer(page, genre)
         } catch (e: Exception) {
             null
         }

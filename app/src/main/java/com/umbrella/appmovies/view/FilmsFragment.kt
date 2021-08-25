@@ -55,7 +55,7 @@ class FilmsFragment : Fragment() {
             setClickListeners()
             initAdapters()
             initMainObserver()
-            viewModel.makeApiCall(HORROR, ACTION, COMEDY)
+            viewModel.makeApiCalls(HORROR, ACTION, COMEDY)
 
         } else {
             initAdapters()
@@ -82,7 +82,7 @@ class FilmsFragment : Fragment() {
                         loadingLayout.hide()
                         errorScreen.show()
                         anchorView.showSnackBar(SNACK_BAR_ERROR, SNACK_BAR_RELOAD) {
-                            viewModel.makeApiCall(HORROR, ACTION, COMEDY)
+                            viewModel.makeApiCalls(HORROR, ACTION, COMEDY)
                         }
                     }
                 }
