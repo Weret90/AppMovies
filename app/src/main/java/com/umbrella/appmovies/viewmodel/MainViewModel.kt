@@ -26,13 +26,13 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun getDatabaseLiveData(): LiveData<List<Film>> = databaseLiveData
 
-    fun makeApiCalls(genre1: String, genre2: String, genre3: String) {
+    fun makeApiCalls(genre1: String, genre2: String, genre3: String, includeAdult: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
             networkLiveData.postValue(AppState.Loading)
             val allFilmsList = awaitAll(
-                async { getOneCategoryFilms("1", genre1) },
-                async { getOneCategoryFilms("1", genre2) },
-                async { getOneCategoryFilms("1", genre3) },
+                async { getOneCategoryFilms("1", genre1, includeAdult) },
+                async { getOneCategoryFilms("1", genre2, includeAdult) },
+                async { getOneCategoryFilms("1", genre3, includeAdult) },
             )
             try {
                 networkLiveData.postValue(AppState.Success(allFilmsList.requireNoNulls()))
@@ -42,9 +42,13 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    private suspend fun getOneCategoryFilms(page: String, genre: String): FilmsList? {
+    private suspend fun getOneCategoryFilms(
+        page: String,
+        genre: String,
+        includeAdult: Boolean
+    ): FilmsList? {
         return try {
-            RetroInstance.getFilmsDetailsFromServer(page, genre)
+            RetroInstance.getFilmsDetailsFromServer(page, genre, includeAdult)
         } catch (e: Exception) {
             null
         }

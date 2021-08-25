@@ -17,8 +17,8 @@ class RetroInstance {
             .addConverterFactory(GsonConverterFactory.create())
             .build().create(RetroService::class.java)
 
-        suspend fun getFilmsDetailsFromServer(page: String, genre: String): FilmsList {
-            return apiFilms.getDataFromApi(apiKey, sortMethod, page, genre, language)
+        suspend fun getFilmsDetailsFromServer(page: String, genre: String, includeAdult: Boolean): FilmsList {
+            return apiFilms.getDataFromApi(apiKey, sortMethod, page, genre, language, includeAdult)
         }
     }
 }
