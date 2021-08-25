@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.umbrella.appmovies.R
 import com.umbrella.appmovies.databinding.FragmentFilmsBinding
 import com.umbrella.appmovies.model.AppState
-import com.umbrella.appmovies.view.adapter.FilmsAdapter
+import com.umbrella.appmovies.view.adapters.FilmsAdapter
 import com.umbrella.appmovies.viewmodel.MainViewModel
 
 private const val HORROR = "27"
@@ -81,7 +81,7 @@ class FilmsFragment : Fragment() {
     }
 
     private fun initMainObserver() {
-        viewModel.getNetworkLiveData().observe(viewLifecycleOwner, {
+        viewModel.getDownloadStatusLiveData().observe(viewLifecycleOwner, {
             with(binding) {
                 when (it) {
                     is AppState.Loading -> {

@@ -17,7 +17,8 @@ class MainActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.bottomNavMovies -> findNavController(R.id.fragmentContainerView).navigate(R.id.mainFragment)
                 R.id.bottomNavSelectedMovies -> findNavController(R.id.fragmentContainerView).navigate(R.id.selectedFilmsFragment)
-                R.id.bottomNavInfo -> findNavController(R.id.fragmentContainerView).navigate(R.id.infoFragment)
+                R.id.bottomNavParameters -> findNavController(R.id.fragmentContainerView).navigate(R.id.parametersFragment)
+                R.id.bottomNavNotes -> findNavController(R.id.fragmentContainerView).navigate(R.id.notesFragment)
             }
             true
         }

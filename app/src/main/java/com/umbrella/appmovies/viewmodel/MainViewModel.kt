@@ -8,7 +8,9 @@ import androidx.lifecycle.viewModelScope
 import com.umbrella.appmovies.model.AppState
 import com.umbrella.appmovies.model.Film
 import com.umbrella.appmovies.model.FilmsList
+import com.umbrella.appmovies.model.Note
 import com.umbrella.appmovies.model.database.FilmsDatabase
+import com.umbrella.appmovies.model.database.NotesDatabase
 import com.umbrella.appmovies.model.network.RetroInstance
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -17,27 +19,29 @@ import kotlinx.coroutines.launch
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val database = FilmsDatabase.getInstance(application)
+    private val databaseFavouriteFilms = FilmsDatabase.getInstance(application)
+    private val databaseNotes = NotesDatabase.getInstance(application)
 
-    private val networkLiveData = MutableLiveData<AppState>()
-    private val databaseLiveData = database.filmsDao().getAllFilms()
+    private val downloadStatusLiveData = MutableLiveData<AppState>()
+    private val databaseFavouriteFilmsLiveData = databaseFavouriteFilms.filmsDao().getAllFilms()
+    private val databaseNotesLiveData = databaseNotes.notesDao().getAllNotes()
 
-    fun getNetworkLiveData() = networkLiveData
-
-    fun getDatabaseLiveData(): LiveData<List<Film>> = databaseLiveData
+    fun getDownloadStatusLiveData() = downloadStatusLiveData
+    fun getDatabaseFavouriteFilmsLiveData(): LiveData<List<Film>> = databaseFavouriteFilmsLiveData
+    fun getDatabaseNotesLiveData(): LiveData<List<Note>> = databaseNotesLiveData
 
     fun makeApiCalls(genre1: String, genre2: String, genre3: String, includeAdult: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
-            networkLiveData.postValue(AppState.Loading)
+            downloadStatusLiveData.postValue(AppState.Loading)
             val allFilmsList = awaitAll(
                 async { getOneCategoryFilms("1", genre1, includeAdult) },
                 async { getOneCategoryFilms("1", genre2, includeAdult) },
                 async { getOneCategoryFilms("1", genre3, includeAdult) },
             )
             try {
-                networkLiveData.postValue(AppState.Success(allFilmsList.requireNoNulls()))
+                downloadStatusLiveData.postValue(AppState.Success(allFilmsList.requireNoNulls()))
             } catch (e: Exception) {
-                networkLiveData.postValue(AppState.Error(e))
+                downloadStatusLiveData.postValue(AppState.Error(e))
             }
         }
     }
@@ -56,25 +60,43 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun deleteAllFilmsFromDB() {
         viewModelScope.launch(Dispatchers.IO) {
-            database.filmsDao().deleteAllFilms()
+            databaseFavouriteFilms.filmsDao().deleteAllFilms()
         }
     }
 
-    fun insertFilmFromDB(film: Film) {
+    fun insertFilmIntoDB(film: Film) {
         viewModelScope.launch(Dispatchers.IO) {
-            database.filmsDao().insertFilm(film)
+            databaseFavouriteFilms.filmsDao().insertFilm(film)
         }
     }
 
     fun deleteFilmFromDB(film: Film) {
         viewModelScope.launch(Dispatchers.IO) {
-            database.filmsDao().deleteFilm(film)
+            databaseFavouriteFilms.filmsDao().deleteFilm(film)
         }
     }
 
     fun updateFilmFromDB(film: Film) {
         viewModelScope.launch(Dispatchers.IO) {
-            database.filmsDao().updateFilm(film)
+            databaseFavouriteFilms.filmsDao().updateFilm(film)
+        }
+    }
+
+    fun deleteAllNotesFromDB() {
+        viewModelScope.launch(Dispatchers.IO) {
+            databaseNotes.notesDao().deleteAllNotes()
+        }
+    }
+
+    fun deleteNoteFromDB(note: Note) {
+        viewModelScope.launch(Dispatchers.IO) {
+            databaseNotes.notesDao().deleteNote(note)
+        }
+    }
+
+    fun insertNoteIntoDB(note: Note) {
+        viewModelScope.launch(Dispatchers.IO) {
+            databaseNotes.notesDao().insertNote(note)
         }
     }
 }

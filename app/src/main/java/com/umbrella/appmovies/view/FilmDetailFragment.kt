@@ -57,7 +57,7 @@ class FilmDetailFragment : Fragment() {
                 filmDescriptionDescription.text = film.overview
 
                 addFilmToSelectedFilms.setOnClickListener {
-                    viewModel.insertFilmFromDB(film)
+                    viewModel.insertFilmIntoDB(film)
                     Toast.makeText(
                         context,
                         root.resources.getString(R.string.movie_added_into_DB_toast),

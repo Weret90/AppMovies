@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.umbrella.appmovies.R
 import com.umbrella.appmovies.databinding.FragmentSelectedFilmsBinding
-import com.umbrella.appmovies.view.adapter.FilmsAdapter
+import com.umbrella.appmovies.view.adapters.FilmsAdapter
 import com.umbrella.appmovies.viewmodel.MainViewModel
 
 class SelectedFilmsFragment : Fragment() {
@@ -48,7 +48,7 @@ class SelectedFilmsFragment : Fragment() {
                 Toast.LENGTH_SHORT
             ).show()
         }
-        viewModel.getDatabaseLiveData().observe(viewLifecycleOwner, {
+        viewModel.getDatabaseFavouriteFilmsLiveData().observe(viewLifecycleOwner, {
             adapter.setFilms(it)
         })
     }

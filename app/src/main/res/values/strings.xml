@@ -5,12 +5,18 @@
     <string name="label_actions">Боевики, драмы, приключения</string>
     <string name="label_comedies">Комедии, мультфильмы</string>
     <string name="download_data_error">Ошибка загрузки данных</string>
-    <string name="rating_star_content_description">this is star picture for rating</string>
+    <string name="rating_star_content_description">Звезда - иконка рейтинга</string>
     <string name="menu_item_movies">Все фильмы</string>
     <string name="menu_item_selected">Избранное</string>
     <string name="menu_item_parameters">Параметры</string>
-    <string name="FAB_icon">this is star icon for FAB</string>
+    <string name="FAB_icon">Кнопка добавляющая фильм в избранное</string>
     <string name="movie_removed_from_DB_toast">Фильм удален из избранного</string>
     <string name="movie_added_into_DB_toast">Фильм добавлен в избранное</string>
     <string name="include_adult_content">Включить \'взрослый контент\'</string>
+    <string name="menu_item_my_notes">Заметки</string>
+    <string name="button_add_note">Кнопка добавляющая заметку</string>
+    <string name="hint_film_title">Название фильма</string>
+    <string name="hint_date_of_watching_film">Дата просмотра</string>
+    <string name="hint_my_review">Отзыв</string>
+    <string name="button_add_note_text">Добавить заметку</string>
 </resources>

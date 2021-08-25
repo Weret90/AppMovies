@@ -12,8 +12,13 @@
         android:title="@string/menu_item_selected" />
 
     <item
-        android:id="@+id/bottomNavInfo"
-        android:icon="@drawable/icon_info"
+        android:id="@+id/bottomNavNotes"
+        android:icon="@drawable/icon_notes"
+        android:title="@string/menu_item_my_notes" />
+
+    <item
+        android:id="@+id/bottomNavParameters"
+        android:icon="@drawable/icon_settings"
         android:title="@string/menu_item_parameters" />
 
 </menu>
