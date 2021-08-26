@@ -1,4 +1,4 @@
-package com.umbrella.appmovies.view
+package com.umbrella.appmovies.view.fragments
 
 import android.content.Context
 import android.os.Bundle
@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.umbrella.appmovies.databinding.FragmentParametersBinding
-import com.umbrella.appmovies.view.FilmsFragment.Companion.IS_INCLUDE_ADULT_KEY
+import com.umbrella.appmovies.view.fragments.FilmsFragment.Companion.IS_INCLUDE_ADULT_KEY
 
 class ParametersFragment : Fragment() {
 

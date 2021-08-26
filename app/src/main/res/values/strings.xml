@@ -19,4 +19,5 @@
     <string name="hint_date_of_watching_film">Дата просмотра</string>
     <string name="hint_my_review">Отзыв</string>
     <string name="button_add_note_text">Добавить заметку</string>
+    <string name="menu_item_contacts">Контакты</string>
 </resources>

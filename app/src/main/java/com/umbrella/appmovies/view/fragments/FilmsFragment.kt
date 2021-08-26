@@ -1,4 +1,4 @@
-package com.umbrella.appmovies.view
+package com.umbrella.appmovies.view.fragments
 
 import android.content.Context
 import android.os.Bundle
@@ -14,6 +14,9 @@ import com.umbrella.appmovies.R
 import com.umbrella.appmovies.databinding.FragmentFilmsBinding
 import com.umbrella.appmovies.model.AppState
 import com.umbrella.appmovies.view.adapters.FilmsAdapter
+import com.umbrella.appmovies.view.hide
+import com.umbrella.appmovies.view.show
+import com.umbrella.appmovies.view.showSnackBar
 import com.umbrella.appmovies.viewmodel.MainViewModel
 
 private const val HORROR = "27"
