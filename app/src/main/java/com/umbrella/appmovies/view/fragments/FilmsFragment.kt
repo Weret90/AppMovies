@@ -65,7 +65,6 @@ class FilmsFragment : Fragment() {
             setClickListeners()
             initAdapters()
             initMainObserver()
-            Log.i("proverka", isIncludeAdult.toString())
             viewModel.makeApiCalls(HORROR, ACTION, COMEDY, isIncludeAdult)
 
         } else {

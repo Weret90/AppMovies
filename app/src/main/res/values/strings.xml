@@ -20,4 +20,11 @@
     <string name="hint_my_review">Отзыв</string>
     <string name="button_add_note_text">Добавить заметку</string>
     <string name="menu_item_contacts">Контакты</string>
+    <string name="question_title_access_to_contacts">Предоставить доступ к контактам?</string>
+    <string name="explanation_access_to_contacts">Приложению требуется доступ к контактам для отображения их во фрагменте</string>
+    <string name="agree_access_to_contacts">Предоставить доступ</string>
+    <string name="refuse_access_to_contacts">Отказаться</string>
+    <string name="refuse_title_access_to_contacts">В доступе к контактам отказано</string>
+    <string name="refuse_explanation_access_to_contacts">В этом фрагменте контакты не будут отображены</string>
+    <string name="close_access_to_contacts">Закрыть</string>
 </resources>

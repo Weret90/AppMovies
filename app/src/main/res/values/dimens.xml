@@ -2,4 +2,5 @@
 <resources>
     <dimen name="default_margin">8dp</dimen>
     <dimen name="big_margin">16dp</dimen>
+    <dimen name="contacts_text_size">8sp</dimen>
 </resources>
