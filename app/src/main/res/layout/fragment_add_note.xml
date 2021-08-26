@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/default_margin"
+    android:orientation="vertical"
+    tools:context=".view.AddNoteFragment">
+
+    <EditText
+        android:id="@+id/editTextFilmTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/default_margin"
+        android:hint="@string/hint_film_title"
+        android:inputType="text" />
+
+    <EditText
+        android:id="@+id/editTextDateOfWatching"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/default_margin"
+        android:hint="@string/hint_date_of_watching_film"
+        android:inputType="date" />
+
+    <EditText
+        android:id="@+id/editTextReview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/default_margin"
+        android:hint="@string/hint_my_review"
+        android:inputType="textMultiLine" />
+
+    <Button
+        android:id="@+id/buttonAddNoteIntoDB"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/default_margin"
+        android:text="@string/button_add_note_text" />
+
+</LinearLayout>

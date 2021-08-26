@@ -21,8 +21,18 @@
         android:label="fragment_selected_films"
         tools:layout="@layout/fragment_selected_films" />
     <fragment
-        android:id="@+id/infoFragment"
-        android:name="com.umbrella.appmovies.view.InfoFragment"
+        android:id="@+id/parametersFragment"
+        android:name="com.umbrella.appmovies.view.ParametersFragment"
         android:label="fragment_info"
-        tools:layout="@layout/fragment_info" />
+        tools:layout="@layout/fragment_parameters" />
+    <fragment
+        android:id="@+id/notesFragment"
+        android:name="com.umbrella.appmovies.view.NotesFragment"
+        android:label="fragment_notes"
+        tools:layout="@layout/fragment_notes" />
+    <fragment
+        android:id="@+id/addNoteFragment"
+        android:name="com.umbrella.appmovies.view.AddNoteFragment"
+        android:label="fragment_add_note"
+        tools:layout="@layout/fragment_add_note" />
 </navigation>

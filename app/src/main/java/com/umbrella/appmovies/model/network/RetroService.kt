@@ -5,7 +5,6 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 
-
 interface RetroService {
     @GET("3/discover/movie")
     suspend fun getDataFromApi(
@@ -14,5 +13,6 @@ interface RetroService {
         @Query("page") page: String,
         @Query("with_genres") genre: String,
         @Query("language") language: String,
+        @Query("include_adult") includeAdult: Boolean
     ): FilmsList
 }

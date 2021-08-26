@@ -1,6 +1,8 @@
 package com.umbrella.appmovies.view
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,8 +13,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.umbrella.appmovies.R
 import com.umbrella.appmovies.databinding.FragmentFilmsBinding
 import com.umbrella.appmovies.model.AppState
-import com.umbrella.appmovies.view.adapter.FilmsAdapter
+import com.umbrella.appmovies.view.adapters.FilmsAdapter
 import com.umbrella.appmovies.viewmodel.MainViewModel
+
+private const val HORROR = "27"
+private const val COMEDY = "35"
+private const val ACTION = "28"
+private const val SNACK_BAR_ERROR = "Ошибка"
+private const val SNACK_BAR_RELOAD = "Повторить"
+private const val FILMS_CATEGORY_NUMBER = 3
 
 class FilmsFragment : Fragment() {
 
@@ -21,15 +30,11 @@ class FilmsFragment : Fragment() {
     private lateinit var viewModel: MainViewModel
 
     private val listAdapters = ArrayList<FilmsAdapter>()
+    private var isIncludeAdult = false
 
     companion object {
-        private const val HORROR = "27"
-        private const val COMEDY = "35"
-        private const val ACTION = "28"
         const val ARG_FILM = "film"
-        private const val SNACK_BAR_ERROR = "Ошибка"
-        private const val SNACK_BAR_RELOAD = "Повторить"
-        private const val FILMS_CATEGORY_NUMBER = 3
+        const val IS_INCLUDE_ADULT_KEY = "isIncludeAdultKey"
     }
 
     override fun onCreateView(
@@ -48,6 +53,8 @@ class FilmsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initIsIncludeAdultVar()
+
         if (listAdapters.isEmpty()) {
             for (i in (1..FILMS_CATEGORY_NUMBER)) {
                 listAdapters.add(FilmsAdapter())
@@ -55,7 +62,8 @@ class FilmsFragment : Fragment() {
             setClickListeners()
             initAdapters()
             initMainObserver()
-            viewModel.makeApiCalls(HORROR, ACTION, COMEDY)
+            Log.i("proverka", isIncludeAdult.toString())
+            viewModel.makeApiCalls(HORROR, ACTION, COMEDY, isIncludeAdult)
 
         } else {
             initAdapters()
@@ -63,8 +71,17 @@ class FilmsFragment : Fragment() {
 
     }
 
+    private fun initIsIncludeAdultVar() {
+        activity?.let {
+            isIncludeAdult = it.getPreferences(Context.MODE_PRIVATE).getBoolean(
+                IS_INCLUDE_ADULT_KEY,
+                false
+            )
+        }
+    }
+
     private fun initMainObserver() {
-        viewModel.getNetworkLiveData().observe(viewLifecycleOwner, {
+        viewModel.getDownloadStatusLiveData().observe(viewLifecycleOwner, {
             with(binding) {
                 when (it) {
                     is AppState.Loading -> {
@@ -82,7 +99,7 @@ class FilmsFragment : Fragment() {
                         loadingLayout.hide()
                         errorScreen.show()
                         anchorView.showSnackBar(SNACK_BAR_ERROR, SNACK_BAR_RELOAD) {
-                            viewModel.makeApiCalls(HORROR, ACTION, COMEDY)
+                            viewModel.makeApiCalls(HORROR, ACTION, COMEDY, isIncludeAdult)
                         }
                     }
                 }
