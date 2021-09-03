@@ -7,32 +7,37 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.umbrella.appmovies.view.FilmsFragment"
+        android:name="com.umbrella.appmovies.view.fragments.FilmsFragment"
         android:label="main_fragment"
         tools:layout="@layout/fragment_films" />
     <fragment
         android:id="@+id/filmDetailFragment"
-        android:name="com.umbrella.appmovies.view.FilmDetailFragment"
+        android:name="com.umbrella.appmovies.view.fragments.FilmDetailFragment"
         android:label="fragment_film_detail"
         tools:layout="@layout/fragment_film_detail" />
     <fragment
         android:id="@+id/selectedFilmsFragment"
-        android:name="com.umbrella.appmovies.view.SelectedFilmsFragment"
+        android:name="com.umbrella.appmovies.view.fragments.SelectedFilmsFragment"
         android:label="fragment_selected_films"
         tools:layout="@layout/fragment_selected_films" />
     <fragment
         android:id="@+id/parametersFragment"
-        android:name="com.umbrella.appmovies.view.ParametersFragment"
+        android:name="com.umbrella.appmovies.view.fragments.ParametersFragment"
         android:label="fragment_info"
         tools:layout="@layout/fragment_parameters" />
     <fragment
         android:id="@+id/notesFragment"
-        android:name="com.umbrella.appmovies.view.NotesFragment"
+        android:name="com.umbrella.appmovies.view.fragments.NotesFragment"
         android:label="fragment_notes"
         tools:layout="@layout/fragment_notes" />
     <fragment
         android:id="@+id/addNoteFragment"
-        android:name="com.umbrella.appmovies.view.AddNoteFragment"
+        android:name="com.umbrella.appmovies.view.fragments.AddNoteFragment"
         android:label="fragment_add_note"
         tools:layout="@layout/fragment_add_note" />
+    <fragment
+        android:id="@+id/contactsFragment"
+        android:name="com.umbrella.appmovies.view.fragments.ContactsFragment"
+        android:label="fragment_contacts"
+        tools:layout="@layout/fragment_contacts" />
 </navigation>
