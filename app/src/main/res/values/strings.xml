@@ -27,4 +27,10 @@
     <string name="refuse_title_access_to_contacts">В доступе к контактам отказано</string>
     <string name="refuse_explanation_access_to_contacts">В этом фрагменте контакты не будут отображены</string>
     <string name="close_access_to_contacts">Закрыть</string>
+    <string name="default_address">Red Square, 1, Moscow</string>
+    <string name="button_search_map">Search</string>
+    <string name="marker_start">Start</string>
+    <string name="button_get_actors_text">Получить список актеров</string>
+    <string name="actor_photo">Фото актера или актрисы</string>
+    <string name="FAB_image_map">Изображение карты на FAB</string>
 </resources>

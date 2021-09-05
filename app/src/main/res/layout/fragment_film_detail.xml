@@ -16,10 +16,10 @@
 
             <ImageView
                 android:id="@+id/filmDescriptionPoster"
-                android:layout_width="300dp"
-                android:layout_height="400dp"
+                android:layout_width="@dimen/film_description_poster_width"
+                android:layout_height="@dimen/film_description_poster_height"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/default_margin"
                 android:contentDescription="@string/poster_content_description"
                 android:scaleType="centerCrop"
                 tools:src="@drawable/ic_launcher_background" />
@@ -28,27 +28,27 @@
                 android:id="@+id/filmDescriptionTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginStart="@dimen/big_margin"
+                android:layout_marginTop="@dimen/default_margin"
+                android:layout_marginEnd="@dimen/big_margin"
                 android:gravity="center"
-                android:textSize="18sp"
+                android:textSize="@dimen/default_text_size"
                 android:textStyle="bold"
                 tools:text="Какой-то фильм" />
 
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp">
+                android:layout_marginStart="@dimen/big_margin"
+                android:layout_marginTop="@dimen/default_margin"
+                android:layout_marginEnd="@dimen/big_margin">
 
                 <TextView
                     android:id="@+id/filmDescriptionYear"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:textSize="18sp"
+                    android:textSize="@dimen/default_text_size"
                     tools:text="2020" />
 
                 <LinearLayout
@@ -68,7 +68,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:textSize="18sp"
+                        android:textSize="@dimen/default_text_size"
                         tools:text="7.7" />
                 </LinearLayout>
             </FrameLayout>
@@ -77,15 +77,25 @@
                 android:id="@+id/filmDescriptionDescription"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="8dp"
-                android:textSize="18sp"
+                android:layout_marginStart="@dimen/big_margin"
+                android:layout_marginTop="@dimen/default_margin"
+                android:layout_marginEnd="@dimen/big_margin"
+                android:layout_marginBottom="@dimen/default_margin"
+                android:textSize="@dimen/default_text_size"
                 android:textStyle="italic"
                 tools:text="Здесь будет описание фильма" />
 
+            <Button
+                android:id="@+id/buttonGetActors"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/big_margin"
+                android:layout_marginEnd="@dimen/big_margin"
+                android:layout_marginBottom="@dimen/default_margin"
+                android:text="@string/button_get_actors_text" />
+
         </LinearLayout>
+
     </ScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -93,8 +103,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="16dp"
-        android:src="@drawable/icon_selected_films"
-        android:contentDescription="@string/FAB_icon" />
+        android:layout_margin="@dimen/big_margin"
+        android:contentDescription="@string/FAB_icon"
+        android:src="@drawable/icon_selected_films" />
 
 </FrameLayout>

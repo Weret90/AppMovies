@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
+import com.umbrella.appmovies.R
 import com.umbrella.appmovies.databinding.FragmentParametersBinding
 import com.umbrella.appmovies.view.fragments.FilmsFragment.Companion.IS_INCLUDE_ADULT_KEY
 
@@ -31,6 +33,9 @@ class ParametersFragment : Fragment() {
             activity?.let {
                 it.getPreferences(Context.MODE_PRIVATE).edit().putBoolean(IS_INCLUDE_ADULT_KEY, isChecked).apply()
             }
+        }
+        binding.FABLocation.setOnClickListener {
+            findNavController().navigate(R.id.mapsFragment)
         }
     }
 
