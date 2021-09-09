@@ -76,6 +76,18 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    fun updateFilmFromDB(film: Film) {
+        viewModelScope.launch(Dispatchers.IO) {
+            databaseFavouriteFilms.filmsDao().updateFilm(film)
+        }
+    }
+
+    fun deleteAllNotesFromDB() {
+        viewModelScope.launch(Dispatchers.IO) {
+            databaseNotes.notesDao().deleteAllNotes()
+        }
+    }
+
     fun deleteNoteFromDB(note: Note) {
         viewModelScope.launch(Dispatchers.IO) {
             databaseNotes.notesDao().deleteNote(note)

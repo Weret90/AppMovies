@@ -1,7 +1,7 @@
 package com.umbrella.appmovies.view
 
-import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
 import androidx.navigation.findNavController
 import com.umbrella.appmovies.R
 import com.umbrella.appmovies.databinding.ActivityMainBinding
