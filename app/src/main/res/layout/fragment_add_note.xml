@@ -9,26 +9,23 @@
 
     <EditText
         android:id="@+id/editTextFilmTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/default_margin"
+        style="@style/fragment_add_note_edit_text_style"
         android:hint="@string/hint_film_title"
+        android:importantForAutofill="no"
         android:inputType="text" />
 
     <EditText
         android:id="@+id/editTextDateOfWatching"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/default_margin"
+        style="@style/fragment_add_note_edit_text_style"
         android:hint="@string/hint_date_of_watching_film"
+        android:importantForAutofill="no"
         android:inputType="date" />
 
     <EditText
         android:id="@+id/editTextReview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/default_margin"
+        style="@style/fragment_add_note_edit_text_style"
         android:hint="@string/hint_my_review"
+        android:importantForAutofill="no"
         android:inputType="textMultiLine" />
 
     <Button

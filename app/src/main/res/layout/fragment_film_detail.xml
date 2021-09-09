@@ -20,28 +20,20 @@
                 android:layout_height="@dimen/film_description_poster_height"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/default_margin"
+                android:layout_marginBottom="@dimen/default_margin"
                 android:contentDescription="@string/poster_content_description"
                 android:scaleType="centerCrop"
                 tools:src="@drawable/ic_launcher_background" />
 
             <TextView
                 android:id="@+id/filmDescriptionTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/big_margin"
-                android:layout_marginTop="@dimen/default_margin"
-                android:layout_marginEnd="@dimen/big_margin"
+                style="@style/fragment_film_detail_views_style"
                 android:gravity="center"
                 android:textSize="@dimen/default_text_size"
                 android:textStyle="bold"
                 tools:text="Какой-то фильм" />
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/big_margin"
-                android:layout_marginTop="@dimen/default_margin"
-                android:layout_marginEnd="@dimen/big_margin">
+            <FrameLayout style="@style/fragment_film_detail_views_style">
 
                 <TextView
                     android:id="@+id/filmDescriptionYear"
@@ -54,7 +46,8 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="end">
+                    android:layout_gravity="end"
+                    tools:ignore="UseCompoundDrawables">
 
                     <ImageView
                         android:id="@+id/imageStarForRating"
@@ -75,23 +68,14 @@
 
             <TextView
                 android:id="@+id/filmDescriptionDescription"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/big_margin"
-                android:layout_marginTop="@dimen/default_margin"
-                android:layout_marginEnd="@dimen/big_margin"
-                android:layout_marginBottom="@dimen/default_margin"
+                style="@style/fragment_film_detail_views_style"
                 android:textSize="@dimen/default_text_size"
                 android:textStyle="italic"
                 tools:text="Здесь будет описание фильма" />
 
             <Button
                 android:id="@+id/buttonGetActors"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/big_margin"
-                android:layout_marginEnd="@dimen/big_margin"
-                android:layout_marginBottom="@dimen/default_margin"
+                style="@style/fragment_film_detail_views_style"
                 android:text="@string/button_get_actors_text" />
 
         </LinearLayout>
