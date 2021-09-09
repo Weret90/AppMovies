@@ -9,4 +9,8 @@
     <dimen name="film_description_poster_height">400dp</dimen>
     <dimen name="default_text_size">18sp</dimen>
     <dimen name="actor_image_size">100dp</dimen>
+    <dimen name="big_text_size">24sp</dimen>
+    <dimen name="item_film_poster_width_size">120dp</dimen>
+    <dimen name="item_film_poster_height_size">150dp</dimen>
+    <dimen name="small_margin">4dp</dimen>
 </resources>
