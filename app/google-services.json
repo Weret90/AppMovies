@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "6050656770",
+    "project_id": "app-movies-50ad8",
+    "storage_bucket": "app-movies-50ad8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:6050656770:android:a0e6b72b66a5f747746d1b",
+        "android_client_info": {
+          "package_name": "com.umbrella.appmovies"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "6050656770-qjtcgfm8kiree4lkp36v0ko4l9ig3bfm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.umbrella.appmovies",
+            "certificate_hash": "a74151e51710304ab0db17159b8706e07a1f8eee"
+          }
+        },
+        {
+          "client_id": "6050656770-e1f8tg4f8hnv91uimarfhus5i5h5mm1e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBbpeZ5wETX7nL5Ff3iriEl1yPL_mqfIjk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "6050656770-e1f8tg4f8hnv91uimarfhus5i5h5mm1e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -18,6 +18,8 @@ import com.umbrella.appmovies.databinding.FragmentMapsBinding
 import com.umbrella.appmovies.view.fragments.ActorsFragment.Companion.ARG_PLACE_OF_BIRTH
 import java.io.IOException
 
+private const val ZOOM = 15f
+
 class MapsFragment : Fragment() {
 
     private lateinit var map: GoogleMap
@@ -137,7 +139,7 @@ class MapsFragment : Fragment() {
         Thread {
             try {
                 val addresses = geoCoder.getFromLocationName(searchText, 1)
-                if (addresses.size > 0) {
+                if (addresses.isNotEmpty()) {
                     goToAddress(addresses, binding.buttonSearch, searchText)
                 }
             } catch (e: IOException) {
@@ -160,7 +162,7 @@ class MapsFragment : Fragment() {
             map.moveCamera(
                 CameraUpdateFactory.newLatLngZoom(
                     location,
-                    15f
+                    ZOOM
                 )
             )
         }
